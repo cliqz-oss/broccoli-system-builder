@@ -1,6 +1,6 @@
 {
   "name": "broccoli-system-builder",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "BroccoliJS SystemJS Bundler",
   "main": "index.js",
   "scripts": {
