@@ -1,0 +1,28 @@
+{
+  "name": "broccoli-system-builder",
+  "version": "0.0.0",
+  "description": "BroccoliJS SystemJS Bundler",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bajix/broccoli-system-builder.git"
+  },
+  "keywords": [
+    "SystemJS"
+  ],
+  "author": "Thomas Sieverding <Thomas@bajix.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bajix/broccoli-system-builder/issues"
+  },
+  "homepage": "https://github.com/Bajix/broccoli-system-builder#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "broccoli-writer": "^0.1.1",
+    "rsvp": "^3.2.1",
+    "systemjs-builder": "^0.15.10"
+  }
+}

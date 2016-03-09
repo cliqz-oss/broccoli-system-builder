@@ -1,0 +1,54 @@
+var Output = require('systemjs-builder/lib/output'),
+  Writer = require('broccoli-writer'),
+  RSVP = require('rsvp'),
+  path = require('path'),
+  fs = require('fs');
+  paths = {};
+
+var writeOutputs = Output.writeOutputs;
+
+Output.writeOutputs = function( outputs, baseURL, outputOpts ) {
+  baseURL = baseURL.replace(paths.sourceDir, paths.destDir);
+
+  if (outputOpts.hasOwnProperty('outFile')) {
+    outputOpts.outFile = path.join(paths.destDir, outputOpts.outFile);
+  }
+
+  return writeOutputs.apply(this, arguments);
+};
+
+var Builder = require('systemjs-builder');
+
+function SystemWriter ( inputNodes, baseURL, configPath, fn ) {
+  if (!(this instanceof SystemWriter)) {
+    return new SystemWriter(inputNodes, baseURL, configPath, fn);
+  }
+
+  this.inputNodes = inputNodes;
+  this.baseURL = baseURL;
+  this.configPath = configPath;
+  this.fn = fn;
+};
+
+SystemWriter.prototype = Object.create(Writer.prototype);
+SystemWriter.prototype.constructor = SystemWriter;
+
+SystemWriter.prototype.write = function( readTree, destDir ) {
+  return readTree(this.inputNodes).then(function( sourceDir ) {
+    var configPath = path.join(sourceDir, this.configPath),
+      baseURL = path.join(sourceDir, this.baseURL),
+      builder = new Builder(baseURL, configPath),
+      fn = this.fn;
+
+    paths.sourceDir = sourceDir;
+    paths.destDir = destDir;
+
+    return new RSVP.Promise(function( resolve ) {
+      resolve();
+    }).then(function() {
+      return fn(builder);
+    });
+  }.bind(this));
+};
+
+module.exports = SystemWriter;
