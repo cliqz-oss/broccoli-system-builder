@@ -10,7 +10,7 @@ var writeOutputs = Output.writeOutputs;
 Output.writeOutputs = function( outputs, baseURL, outputOpts ) {
   baseURL = baseURL.replace(paths.sourceDir, paths.destDir);
 
-  if (outputOpts.hasOwnProperty('outFile')) {
+  if (outputOpts.outFile) {
     outputOpts.outFile = path.join(paths.destDir, outputOpts.outFile);
   }
 
