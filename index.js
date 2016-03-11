@@ -19,9 +19,9 @@ Output.writeOutputs = function( outputs, baseURL, outputOpts ) {
 
 var Builder = require('systemjs-builder');
 
-function SystemWriter ( inputNodes, baseURL, configPath, fn ) {
-  if (!(this instanceof SystemWriter)) {
-    return new SystemWriter(inputNodes, baseURL, configPath, fn);
+function SystemBuilder ( inputNodes, baseURL, configPath, fn ) {
+  if (!(this instanceof SystemBuilder)) {
+    return new SystemBuilder(inputNodes, baseURL, configPath, fn);
   }
 
   this.buildCount = 0;
@@ -32,10 +32,10 @@ function SystemWriter ( inputNodes, baseURL, configPath, fn ) {
   this.fn = fn;
 };
 
-SystemWriter.prototype = Object.create(Writer.prototype);
-SystemWriter.prototype.constructor = SystemWriter;
+SystemBuilder.prototype = Object.create(Writer.prototype);
+SystemBuilder.prototype.constructor = SystemBuilder;
 
-SystemWriter.prototype.write = function( readTree, destDir ) {
+SystemBuilder.prototype.write = function( readTree, destDir ) {
   return readTree(this.inputNodes).then(function( sourceDir ) {
     var configPath = path.join(sourceDir, this.configPath),
       baseURL = path.join(sourceDir, this.baseURL),
@@ -62,4 +62,4 @@ SystemWriter.prototype.write = function( readTree, destDir ) {
   }.bind(this));
 };
 
-module.exports = SystemWriter;
+module.exports = SystemBuilder;
