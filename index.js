@@ -24,6 +24,8 @@ function SystemWriter ( inputNodes, baseURL, configPath, fn ) {
     return new SystemWriter(inputNodes, baseURL, configPath, fn);
   }
 
+  this.buildCount = 0;
+  this.builder = new Builder();
   this.inputNodes = inputNodes;
   this.baseURL = baseURL;
   this.configPath = configPath;
@@ -37,11 +39,20 @@ SystemWriter.prototype.write = function( readTree, destDir ) {
   return readTree(this.inputNodes).then(function( sourceDir ) {
     var configPath = path.join(sourceDir, this.configPath),
       baseURL = path.join(sourceDir, this.baseURL),
-      builder = new Builder(baseURL, configPath),
+      builder = this.builder,
       fn = this.fn;
 
     paths.sourceDir = sourceDir;
     paths.destDir = destDir;
+
+
+    if (this.buildCount++ === 0) {
+      builder.config({
+        baseURL: baseURL
+      }, true, false);
+
+      builder.loadConfigSync(configPath, true, true);
+    }
 
     return new RSVP.Promise(function( resolve ) {
       resolve();
