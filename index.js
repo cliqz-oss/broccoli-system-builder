@@ -57,7 +57,7 @@ SystemBuilder.prototype.write = function( readTree, destDir ) {
     return new RSVP.Promise(function( resolve ) {
       resolve();
     }).then(function() {
-      return fn(builder);
+      return fn(builder, sourceDir, destDir);
     });
   }.bind(this));
 };
