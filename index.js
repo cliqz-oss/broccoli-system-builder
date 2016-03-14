@@ -52,6 +52,8 @@ SystemBuilder.prototype.write = function( readTree, destDir ) {
       }, true, false);
 
       builder.loadConfigSync(configPath, true, true);
+    } else {
+      builder.invalidate('*');
     }
 
     return new RSVP.Promise(function( resolve ) {
