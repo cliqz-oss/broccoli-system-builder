@@ -13,7 +13,7 @@ npm install broccoli-system-builder --save-dev
 ```js
 var SystemBuilder = require('broccoli-system-builder');
 
-var outputNode = new SytemBuilder(inputNode, baseURL, configPath, fn);
+var outputNode = new SystemBuilder(inputNode, baseURL, configPath, fn);
 ```
 
 * **`inputNode`**: Input node for System Builder.
@@ -27,7 +27,7 @@ var outputNode = new SytemBuilder(inputNode, baseURL, configPath, fn);
 ### Example
 
 ```js
-var outputNode = new SytemBuilder(inputNode, '/', 'system.config.js', function( builder ) {
+var outputNode = new SystemBuilder(inputNode, '/', 'system.config.js', function( builder ) {
 
   builder.config({
     meta: {
