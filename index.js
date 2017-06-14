@@ -50,11 +50,11 @@ SystemBuilder.prototype.write = function( readTree, destDir ) {
       builder.config({
         baseURL: baseURL
       }, true, false);
-
-      builder.loadConfigSync(configPath, true, true);
     } else {
-      builder.invalidate('*');
+      builder.reset();
     }
+
+    builder.loadConfigSync(configPath, true, true);
 
     return new RSVP.Promise(function( resolve ) {
       resolve();
