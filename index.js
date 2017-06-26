@@ -8,8 +8,6 @@ var Output = require('systemjs-builder/lib/output'),
 var writeOutputs = Output.writeOutputs;
 
 Output.writeOutputs = function( outputs, baseURL, outputOpts ) {
-  baseURL = baseURL.replace(paths.sourceDir, paths.destDir);
-
   if (outputOpts.outFile) {
     outputOpts.outFile = path.join(paths.destDir, outputOpts.outFile);
   }
@@ -38,7 +36,7 @@ SystemBuilder.prototype.constructor = SystemBuilder;
 SystemBuilder.prototype.write = function( readTree, destDir ) {
   return readTree(this.inputNodes).then(function( sourceDir ) {
     var configPath = path.join(sourceDir, this.configPath),
-      baseURL = path.join(sourceDir, this.baseURL),
+      baseURL = 'file:///'+path.resolve(path.join(sourceDir, this.baseURL)),
       builder = this.builder,
       fn = this.fn;
 
